@@ -41,6 +41,9 @@ extern int g_Noise;
 extern bool g_BlendAll; // If set, do not assume certain blocks (like grass) are always opaque
 extern bool g_Hell, g_ServerHell; // rendering the nether
 
+// Draw only railways?
+extern bool g_RailsOnly;
+
 // For rendering biome colors properly, external png files are used
 extern bool g_UseBiomes;
 extern uint64_t g_BiomeMapSize;

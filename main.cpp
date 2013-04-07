@@ -214,6 +214,8 @@ int main(int argc, char **argv)
 				g_Orientation = West;
 			} else if (strcmp(option, "-3") == 0) {
 				g_OffsetY = 3;
+			} else if (strcmp(option, "-rails") == 0) {
+				g_RailsOnly = true;
 			} else if (strcmp(option, "-split") == 0) {
 				if (!MOREARGS(1)) {
 					printf("Error: %s needs a path argument, ie: %s tiles/\n", option, option);
@@ -597,8 +599,16 @@ int main(int argc, char **argv)
 				for (int y = uint8_t(HEIGHTAT(x, z)); y < max; ++y) {
 					bmpPosY -= g_OffsetY;
 					uint8_t &c = BLOCKAT(x, y, z);
-					if (c == AIR) {
-						continue;
+					// Rails hack
+					if(g_RailsOnly) {
+						if (c != RAILROAD && c != POW_RAILROAD && c != DET_RAILROAD) {
+							continue;
+						}
+					}
+					else {
+						if (c == AIR) {
+							continue;
+						}
 					}
 					//float col = float(y) * .78f - 91;
 					float brightnessAdjustment = brightnessLookup[y];
